@@ -1,4 +1,4 @@
-import MainScreen from '../main-screen/mainScreen';
+import Main from '../../pages/main';
 import Header from '../header/header';
 
 type AppMainProps = {
@@ -9,7 +9,7 @@ function App({placesCount}: AppMainProps): JSX.Element {
   return (
     <div className="page">
       <Header/>
-      <MainScreen placesCount = {placesCount}/>
+      <Main placesCount = {placesCount}/>
     </div>
   );
 }
