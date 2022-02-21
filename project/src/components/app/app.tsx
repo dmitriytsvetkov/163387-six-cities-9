@@ -27,16 +27,16 @@ function App({placesCount}: AppMainProps): JSX.Element {
             element={<PrivateRoute><Favorites/></PrivateRoute>}
           />
           <Route
-            path="*"
-            element={<NotFound/>}
-          />
-          <Route
             path={AppRoute.Login}
             element={<Login/>}
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
             element={<Offer/>}
+          />
+          <Route
+            path="*"
+            element={<NotFound/>}
           />
         </Routes>
       </div>
