@@ -1,18 +1,30 @@
-function PlaceCard():JSX.Element {
+import {Offer} from '../../types/offers';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+
+type PlaceCardProps = {
+  offer: Offer,
+  func?: Function,
+  className: string,
+}
+
+function PlaceCard({offer, func, className}: PlaceCardProps) {
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
+    <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseOver={() => {
+      func?.(offer.id)
+    }}>
+      {offer.isPremium ? <div className="place-card__mark">
         <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
-        </a>
+      </div> : ''}
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`${AppRoute.Offer}/:${offer.id}`}>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -29,9 +41,9 @@ function PlaceCard():JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={`${AppRoute.Offer}/:${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
