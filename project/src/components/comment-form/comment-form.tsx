@@ -4,12 +4,12 @@ function CommentForm() {
   const [formData, setFormData] = useState({
     review: '',
     rating: null,
-  })
+  });
 
-  const fieldChangeHandler = (event:any) => {
+  const fieldChangeHandler = (event:(React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>)) => {
     const {name, value} = event.target;
-    setFormData({...formData, [name]: value})
-  }
+    setFormData({...formData, [name]: value});
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post">

@@ -21,9 +21,7 @@ function Favorites({offers}:FavoritesProps) {
                 </div>
               </div>
               <div className="favorites__places">
-                {offers.map((offer:Offer) => {
-                  return (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>)
-                })}
+                {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>))}
               </div>
             </li>
 
@@ -36,9 +34,7 @@ function Favorites({offers}:FavoritesProps) {
                 </div>
               </div>
               <div className="favorites__places">
-                {offers.map((offer:Offer) => {
-                  return (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>)
-                })}
+                {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>))}
               </div>
             </li>
           </ul>

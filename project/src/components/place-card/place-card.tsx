@@ -4,18 +4,17 @@ import {AppRoute} from '../../const';
 
 type PlaceCardProps = {
   offer: Offer,
-  func?: Function,
+  setActiveOfferCard?: (id: number) => void,
   className: string,
 }
 
-function PlaceCard({offer, func, className}: PlaceCardProps) {
+function PlaceCard({offer, setActiveOfferCard, className}: PlaceCardProps) {
   return (
-    <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseOver={() => {
-      func?.(offer.id)
-    }}>
-      {offer.isPremium ? <div className="place-card__mark">
-        <span>Premium</span>
-      </div> : ''}
+    <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseOver={() => {setActiveOfferCard?.(offer.id);}}>
+      {offer.isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div> : null}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/:${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
