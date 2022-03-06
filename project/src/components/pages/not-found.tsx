@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-function NotFound():JSX.Element {
+function NotFound() {
   return (
     <main className="container">
       <h1>Not Found</h1>
