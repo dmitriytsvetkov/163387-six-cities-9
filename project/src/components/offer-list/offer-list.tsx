@@ -4,11 +4,11 @@ import React from 'react';
 
 type OfferListProps = {
   offers: Offers,
-  onListItemHover: (listItemId: React.MouseEvent<HTMLDivElement> | number) => void,
+  onListItemHover: (listItemId: number) => void,
 }
 
 function OfferList({offers, onListItemHover}: OfferListProps) {
-  const listItemHoverHandler = (evt: React.MouseEvent<HTMLDivElement> | number) => {
+  const listItemHoverHandler = (evt: number) => {
     onListItemHover(evt);
   };
 

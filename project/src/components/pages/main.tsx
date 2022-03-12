@@ -11,9 +11,9 @@ type MainProps = {
 function Main({placesCount, offers}: MainProps) {
   const points = offers.map((offer) => ({...offer.location, id: offer.id}));
 
-  const [selectedPoint, setSelectedPoint] = useState(null);
+  const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
-  const onListItemHover = (listItemId: any) => {
+  const onListItemHover = (listItemId: number ) => {
     setSelectedPoint(listItemId);
   };
 
