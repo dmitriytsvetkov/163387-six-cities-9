@@ -43,8 +43,8 @@ export const offers: Offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 52.31,
-        longitude: 4.87,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -81,8 +81,8 @@ export const offers: Offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.30,
-        longitude: 4.89,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',
@@ -119,8 +119,8 @@ export const offers: Offers = [
     bedrooms: 4,
     city: {
       location: {
-        latitude: 52.25,
-        longitude: 4.88,
+        latitude: 52.370216,
+        longitude: 4.895168,
         zoom: 10,
       },
       name: 'Amsterdam',

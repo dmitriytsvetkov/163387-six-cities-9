@@ -1,16 +1,21 @@
 import {Offer, Offers} from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
-import {useState} from 'react';
+import React from 'react';
 
 type OfferListProps = {
-  offers: Offers
+  offers: Offers,
+  onListItemHover: (listItemId: React.MouseEvent<HTMLDivElement> | number) => void,
 }
 
-function OfferList ({offers}:OfferListProps):JSX.Element {
-  const [, setActiveOfferCard] = useState<HTMLDivElement | null | number>(null);
+function OfferList({offers, onListItemHover}: OfferListProps) {
+  const listItemHoverHandler = (evt: React.MouseEvent<HTMLDivElement> | number) => {
+    onListItemHover(evt);
+  };
+
   return (
-    <div className="cities__places-list places__list tabs__content" >
-      {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} setActiveOfferCard={setActiveOfferCard} className={'place-card'}/>))}
+    <div className="cities__places-list places__list tabs__content">
+      {offers.map((offer: Offer) => (
+        <PlaceCard offer={offer} key={offer.id} listItemHoverHandler={listItemHoverHandler} className={'place-card'}/>))}
     </div>
   );
 }
