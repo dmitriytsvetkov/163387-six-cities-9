@@ -7,7 +7,7 @@ type OfferListProps = {
 }
 
 function OfferList ({offers}:OfferListProps):JSX.Element {
-  const [, setActiveOfferCard] = useState(0);
+  const [, setActiveOfferCard] = useState<HTMLDivElement | null | number>(null);
   return (
     <div className="cities__places-list places__list tabs__content" >
       {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} setActiveOfferCard={setActiveOfferCard} className={'place-card'}/>))}
