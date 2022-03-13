@@ -4,13 +4,13 @@ import {AppRoute} from '../../const';
 
 type PlaceCardProps = {
   offer: Offer,
-  setActiveOfferCard?: (id: number) => void,
+  listItemHoverHandler?: (listItemId: number) => void,
   className: string,
 }
 
-function PlaceCard({offer, setActiveOfferCard, className}: PlaceCardProps) {
+function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
   return (
-    <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseOver={() => {setActiveOfferCard?.(offer.id);}}>
+    <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseEnter={() => {listItemHoverHandler?.(offer.id);}}>
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>

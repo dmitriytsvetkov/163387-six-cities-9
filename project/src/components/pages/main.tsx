@@ -1,12 +1,22 @@
 import {Offers} from '../../types/offers';
 import OfferList from '../offer-list/offer-list';
+import Map from '../map/map';
+import React, {useState} from 'react';
 
 type MainProps = {
   placesCount: number,
-  offers: Offers
+  offers: Offers,
 }
 
 function Main({placesCount, offers}: MainProps) {
+  const points = offers.map((offer) => ({...offer.location, id: offer.id}));
+
+  const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
+
+  const onListItemHover = (listItemId: number ) => {
+    setSelectedPoint(listItemId);
+  };
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -66,10 +76,12 @@ function Main({placesCount, offers}: MainProps) {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <OfferList offers={offers}/>
+            <OfferList offers={offers} onListItemHover={onListItemHover}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"/>
+            <section className="cities__map map">
+              <Map city={offers[0].city} points={points} selectedPoint={selectedPoint}/>
+            </section>
           </div>
         </div>
       </div>
