@@ -1,11 +1,10 @@
-import {Offer, Offers} from '../../types/offers';
+import {Offer} from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
+import {useAppSelector} from '../../hooks';
 
-type FavoritesProps = {
-  offers: Offers
-}
+function Favorites() {
+  const {offers} = useAppSelector((state) => state);
 
-function Favorites({offers}:FavoritesProps) {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">

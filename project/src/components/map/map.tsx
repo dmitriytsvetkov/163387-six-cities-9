@@ -1,19 +1,25 @@
-import {City, Points} from '../../types/offers';
+import {Points} from '../../types/offers';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const';
 import leaflet from 'leaflet';
+import {useAppSelector} from '../../hooks';
+import {getCities, getCurrentCityName} from '../../store/selectors';
+import {findCityByName} from '../../utils';
+import L from 'leaflet';
 
 type MapProps = {
-  city: City,
   points: Points,
   selectedPoint: number | null,
 }
 
-function Map({city, points, selectedPoint}: MapProps) {
+function Map({points, selectedPoint}: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+
+  const currentCity = findCityByName(useAppSelector(getCurrentCityName), useAppSelector(getCities));
+
+  const map = useMap(mapRef, currentCity);
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,
@@ -28,15 +34,22 @@ function Map({city, points, selectedPoint}: MapProps) {
   });
 
   useEffect(() => {
+    const markerGroup = L.layerGroup();
+
     if (map) {
+      markerGroup.addTo(map);
       points.forEach((point) => {
-        leaflet.marker({
+        L.marker({
           lat: point.latitude,
           lng: point.longitude}, {
           icon: (point.id === selectedPoint) ? currentCustomIcon : defaultCustomIcon},
-        ).addTo(map);
+        ).addTo(markerGroup);
       });
     }
+
+    return () => {
+      markerGroup.clearLayers();
+    };
   }, [map, points, selectedPoint]);
 
   return (

@@ -4,16 +4,16 @@ import {Map, TileLayer} from 'leaflet';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City,
+  currentCity: City | undefined,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && map === null) {
+    if (mapRef.current !== null && map === null && currentCity !== undefined) {
       const instance = new Map(mapRef.current, {
         center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude,
+          lat: currentCity.location.latitude,
+          lng: currentCity.location.longitude,
         },
         zoom: 10,
       });
@@ -30,7 +30,12 @@ function useMap(
 
       setMap(instance);
     }
-  }, [mapRef, map, city]);
+
+    if (map !== null && currentCity !== null && currentCity !== undefined) {
+      map.setView([currentCity.location.latitude, currentCity.location.longitude], currentCity.location.zoom);
+    }
+
+  }, [mapRef, map, currentCity]);
 
   return map;
 }

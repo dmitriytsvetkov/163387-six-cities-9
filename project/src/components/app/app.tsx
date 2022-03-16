@@ -7,14 +7,8 @@ import NotFound from '../pages/not-found';
 import Login from '../pages/login';
 import Offer from '../pages/offer';
 import PrivateRoute from '../private-route/private-route';
-import {Offers} from '../../types/offers';
 
-type AppMainProps = {
-  placesCount: number,
-  offers: Offers,
-}
-
-function App({placesCount, offers}: AppMainProps) {
+function App() {
   return (
     <BrowserRouter>
       <div className="page">
@@ -22,11 +16,11 @@ function App({placesCount, offers}: AppMainProps) {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Main placesCount={placesCount} offers={offers}/>}
+            element={<Main/>}
           />
           <Route
             path={AppRoute.Favorites}
-            element={<PrivateRoute><Favorites offers={offers}/></PrivateRoute>}
+            element={<PrivateRoute><Favorites/></PrivateRoute>}
           />
           <Route
             path={AppRoute.Login}
