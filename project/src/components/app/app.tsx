@@ -7,8 +7,16 @@ import NotFound from '../pages/not-found';
 import Login from '../pages/login';
 import Offer from '../pages/offer';
 import PrivateRoute from '../private-route/private-route';
+import {useAppSelector} from '../../hooks';
+import Preloader from '../preloader/preloader';
 
 function App() {
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return <Preloader/>;
+  }
+
   return (
     <BrowserRouter>
       <div className="page">
