@@ -7,6 +7,8 @@ export enum AppRoute {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout'
 }
 
 export const URL_MARKER_DEFAULT =
@@ -27,3 +29,11 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export enum UserData {
+  avatarUrl = 'avatarUrl',
+  email = 'email',
+  id = 'id',
+  isPro = 'isPro',
+  name = 'name',
+  token = 'token',
+}

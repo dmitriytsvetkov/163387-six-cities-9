@@ -1,11 +1,17 @@
 import Login from '../pages/login';
+import {AuthorizationStatus} from '../../const';
 
 type PrivateRouteProps = {
-  children: JSX.Element
+  children: JSX.Element,
+  authorizationStatus: AuthorizationStatus,
 }
 
-function PrivateRoute({children}: PrivateRouteProps) {
-  const hasAccess = false;
+function PrivateRoute({children, authorizationStatus}: PrivateRouteProps) {
+  let hasAccess = false;
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    hasAccess = true;
+  }
 
   return hasAccess ? children : <Login/>;
 }
