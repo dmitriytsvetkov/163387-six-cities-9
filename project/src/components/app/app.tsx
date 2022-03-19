@@ -1,6 +1,6 @@
 import Main from '../pages/main';
 import Header from '../header/header';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Favorites from '../pages/favorites';
 import NotFound from '../pages/not-found';
@@ -9,16 +9,18 @@ import Offer from '../pages/offer';
 import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import Preloader from '../preloader/preloader';
+import HistoryRouter from '../../history-route';
+import {BrowserHistory} from '../../browser-history';
 
 function App() {
-  const {isDataLoaded} = useAppSelector((state) => state);
+  const {isDataLoaded, authorizationStatus} = useAppSelector((state) => state);
 
   if (!isDataLoaded) {
     return <Preloader/>;
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={BrowserHistory}>
       <div className="page">
         <Header/>
         <Routes>
@@ -28,7 +30,7 @@ function App() {
           />
           <Route
             path={AppRoute.Favorites}
-            element={<PrivateRoute><Favorites/></PrivateRoute>}
+            element={<PrivateRoute authorizationStatus={authorizationStatus}><Favorites/></PrivateRoute>}
           />
           <Route
             path={AppRoute.Login}
@@ -44,7 +46,7 @@ function App() {
           />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
