@@ -4,18 +4,20 @@ import React, {useState} from 'react';
 import CityList from '../city-list/city-list';
 import {useAppSelector} from '../../hooks';
 import {getCurrentCityName, getOffers} from '../../store/selectors';
-import {getOffersByCityName} from '../../utils';
+import {getOffersByCityName, getPointsFromOffers} from '../../utils';
+import {MAP_HEIGHT} from '../../const';
 
 function Main() {
   const offers = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCurrentCityName);
 
   const filteredOffers = getOffersByCityName(offers, currentCity);
+
   const offersLength = filteredOffers.length;
 
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
-  const points = filteredOffers.map((offer) => ({...offer.location, id: offer.id}));
+  const points = getPointsFromOffers(filteredOffers);
 
   const onListItemHover = (listItemId: number ) => {
     setSelectedPoint(listItemId);
@@ -51,7 +53,7 @@ function Main() {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map points={points} selectedPoint={selectedPoint}/>
+              <Map points={points} selectedPoint={selectedPoint} height={MAP_HEIGHT.MAIN_SCREEN}/>
             </section>
           </div>
         </div>

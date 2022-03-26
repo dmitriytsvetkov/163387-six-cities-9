@@ -12,9 +12,10 @@ import L from 'leaflet';
 type MapProps = {
   points: Points,
   selectedPoint: number | null,
+  height: number,
 }
 
-function Map({points, selectedPoint}: MapProps) {
+function Map({points, selectedPoint, height}: MapProps) {
   const mapRef = useRef(null);
 
   const currentCity = findCityByName(useAppSelector(getCurrentCityName), useAppSelector(getCities));
@@ -54,7 +55,7 @@ function Map({points, selectedPoint}: MapProps) {
 
   return (
     <div
-      style={{height: '845px'}}
+      style={{height: height}}
       ref={mapRef}
     >
     </div>

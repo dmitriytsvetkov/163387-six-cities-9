@@ -2,17 +2,41 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
 import {Offers} from '../types/offers';
 import {APIRoute, AppRoute, AuthorizationStatus} from '../const';
-import {loadOffers, redirectToRoute, requireAuthorization} from './action';
+import {loadAllOffers, loadNearbyOffers, loadOffer, redirectToRoute, requireAuthorization} from './action';
 import {errorHandle} from '../services/error-handle';
 import {AuthData} from '../types/auth-data';
 import {dropUserData, saveUserData} from '../services/user-data';
 
-export const fetchOfferAction = createAsyncThunk(
+export const fetchAllOffersAction = createAsyncThunk(
   'data/loadOffers',
   async () => {
     try {
       const {data} = await api.get<Offers>(APIRoute.Offers);
-      store.dispatch(loadOffers(data));
+      store.dispatch(loadAllOffers(data));
+    } catch (err) {
+      errorHandle(err);
+    }
+  },
+);
+
+export const fetchOfferAction = createAsyncThunk(
+  'data/loadOffer',
+  async (offerId: number) => {
+    try {
+      const {data} = await api.get(`${APIRoute.Offers}/${offerId}`);
+      store.dispatch(loadOffer(data));
+    } catch (err) {
+      errorHandle(err);
+    }
+  },
+);
+
+export const fetchNearbyOffersAction = createAsyncThunk(
+  'data/loadNearbyOffers',
+  async (offerId: number) => {
+    try {
+      const {data} = await api.get(`${APIRoute.Offers}/${offerId}/nearby`);
+      store.dispatch(loadNearbyOffers(data));
     } catch (err) {
       errorHandle(err);
     }

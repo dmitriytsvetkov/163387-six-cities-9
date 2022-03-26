@@ -16,7 +16,7 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
           <span>Premium</span>
         </div> : null}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/:${offer.id}`}>
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -40,7 +40,7 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/:${offer.id}`}>{offer.title}</Link>
+          <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
