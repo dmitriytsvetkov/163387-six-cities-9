@@ -3,7 +3,7 @@ import PlaceCard from '../place-card/place-card';
 import {useAppSelector} from '../../hooks';
 
 function Favorites() {
-  const {offers} = useAppSelector((state) => state);
+  const offers = useAppSelector((state) => state.offers);
 
   return (
     <main className="page__main page__main--favorites">

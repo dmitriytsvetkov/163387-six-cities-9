@@ -37,3 +37,8 @@ export enum UserData {
   name = 'name',
   token = 'token',
 }
+
+export enum MAP_HEIGHT {
+  OFFER_SCREEN = 579,
+  MAIN_SCREEN = 782,
+}

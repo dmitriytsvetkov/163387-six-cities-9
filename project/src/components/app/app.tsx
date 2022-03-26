@@ -13,7 +13,8 @@ import HistoryRouter from '../../history-route';
 import {BrowserHistory} from '../../browser-history';
 
 function App() {
-  const {isDataLoaded, authorizationStatus} = useAppSelector((state) => state);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (!isDataLoaded) {
     return <Preloader/>;
@@ -36,10 +37,10 @@ function App() {
             path={AppRoute.Login}
             element={<Login/>}
           />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<Offer/>}
-          />
+          <Route path={AppRoute.Offer}>
+            <Route index element={<Offer/>}/>
+            <Route path=':offerId' element={<Offer/>}/>
+          </Route>
           <Route
             path="*"
             element={<NotFound/>}
