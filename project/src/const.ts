@@ -42,3 +42,10 @@ export enum MAP_HEIGHT {
   OFFER_SCREEN = 579,
   MAIN_SCREEN = 782,
 }
+
+export enum FILTER_VALUE {
+  POPULAR = 'Popular',
+  PRICE_DESC = 'Price: low to high',
+  PRICE_ASC = 'Price: high to low',
+  TOP_RATED = 'Top rated first',
+}
