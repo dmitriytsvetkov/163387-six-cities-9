@@ -5,8 +5,22 @@ import CityList from '../city-list/city-list';
 import {useAppSelector} from '../../hooks';
 import {getCurrentCityName, getOffers} from '../../store/selectors';
 import {getOffersByCityName, getPointsFromOffers} from '../../utils';
-import {MAP_HEIGHT} from '../../const';
+import {FilterValue, MAP_HEIGHT} from '../../const';
 import OffersSorting from '../offers-sorting/offers-sortings';
+import {Offers} from '../../types/offers';
+
+const sortOffers = (offers: Offers, filterValue: FilterValue) => {
+  switch (filterValue) {
+    case FilterValue.PRICE_DESC:
+      return offers.sort((a, b) => a.price - b.price);
+    case FilterValue.PRICE_ASC:
+      return offers.sort((a, b) => b.price - a.price);
+    case FilterValue.TOP_RATED:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
 
 function Main() {
   const offers = useAppSelector(getOffers);
@@ -18,9 +32,13 @@ function Main() {
 
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
+  const [selectedSortValue, setSelectedSortValue] = useState<FilterValue>(FilterValue.POPULAR);
+
+  const newFilteredOffers = sortOffers(filteredOffers, selectedSortValue);
+
   const points = getPointsFromOffers(filteredOffers);
 
-  const onListItemHover = (listItemId: number ) => {
+  const onListItemHover = (listItemId: number) => {
     setSelectedPoint(listItemId);
   };
 
@@ -35,8 +53,8 @@ function Main() {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offersLength} places to stay in {currentCity}</b>
-            <OffersSorting/>
-            <OfferList offers={filteredOffers} onListItemHover={onListItemHover} />
+            <OffersSorting selectedSortValue={selectedSortValue} setSelectedSortValue={setSelectedSortValue}/>
+            <OfferList offers={newFilteredOffers} onListItemHover={onListItemHover}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">

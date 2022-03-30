@@ -1,15 +1,20 @@
 import React, {useState} from 'react';
-import {FILTER_VALUE} from '../../const';
+import {FilterValue} from '../../const';
 
-function OffersSorting() {
-  const [filterValue, setFilterValue] = useState<string | null>('Popular');
+type Props = {
+  setSelectedSortValue: (value: FilterValue) => void,
+  selectedSortValue: FilterValue,
+}
+
+function OffersSorting({setSelectedSortValue, selectedSortValue}: Props) {
   const [isActive, setIsActive] = useState(false);
 
   const handleFilterClick = (evt: React.MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     const target = evt.target as HTMLElement;
     setIsActive(!isActive);
-    setFilterValue(target.textContent);
+
+    setSelectedSortValue(target.textContent as FilterValue);
   };
 
   return (
@@ -29,16 +34,16 @@ function OffersSorting() {
           }
         }
       >
-        {filterValue}
+        {selectedSortValue}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isActive ? 'places__options--opened' : null}`}>
-        <li className={`places__option ${FILTER_VALUE.POPULAR === filterValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>Popular</li>
-        <li className={`places__option ${FILTER_VALUE.PRICE_DESC === filterValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>Price: low to high</li>
-        <li className={`places__option ${FILTER_VALUE.PRICE_ASC === filterValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>Price: high to low</li>
-        <li className={`places__option ${FILTER_VALUE.TOP_RATED === filterValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>Top rated first</li>
+        <li className={`places__option ${FilterValue.POPULAR === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.POPULAR}</li>
+        <li className={`places__option ${FilterValue.PRICE_DESC === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PRICE_DESC}</li>
+        <li className={`places__option ${FilterValue.PRICE_ASC === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PRICE_ASC}</li>
+        <li className={`places__option ${FilterValue.TOP_RATED === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.TOP_RATED}</li>
       </ul>
     </form>
   );

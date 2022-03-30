@@ -1,7 +1,7 @@
 import React from 'react';
 import {City} from '../../types/offers';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeCity} from '../../store/action';
+import {changeCurrentCity} from '../../store/action';
 import {getCurrentCityName} from '../../store/selectors';
 
 type CityCardProps = {
@@ -21,9 +21,7 @@ function CityCard({city}: CityCardProps) {
           (evt: React.MouseEvent<HTMLElement>) => {
             evt.preventDefault();
             const target = evt.target as HTMLSpanElement;
-            if (typeof target.textContent === 'string') {
-              dispatch(changeCity(target.textContent));
-            }
+            dispatch(changeCurrentCity(target.textContent));
           }
         }
       >
