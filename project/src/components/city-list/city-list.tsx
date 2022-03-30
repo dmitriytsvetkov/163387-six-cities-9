@@ -6,6 +6,7 @@ import {getCities} from '../../store/selectors';
 
 function CityList() {
   const cities = useAppSelector(getCities);
+
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">

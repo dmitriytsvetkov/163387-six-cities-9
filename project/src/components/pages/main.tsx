@@ -5,7 +5,22 @@ import CityList from '../city-list/city-list';
 import {useAppSelector} from '../../hooks';
 import {getCurrentCityName, getOffers} from '../../store/selectors';
 import {getOffersByCityName, getPointsFromOffers} from '../../utils';
-import {MAP_HEIGHT} from '../../const';
+import {FilterValue, MAP_HEIGHT} from '../../const';
+import OffersSorting from '../offers-sorting/offers-sortings';
+import {Offers} from '../../types/offers';
+
+const sortOffers = (offers: Offers, filterValue: FilterValue) => {
+  switch (filterValue) {
+    case FilterValue.PRICE_DESC:
+      return offers.sort((a, b) => a.price - b.price);
+    case FilterValue.PRICE_ASC:
+      return offers.sort((a, b) => b.price - a.price);
+    case FilterValue.TOP_RATED:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
 
 function Main() {
   const offers = useAppSelector(getOffers);
@@ -17,9 +32,13 @@ function Main() {
 
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
+  const [selectedSortValue, setSelectedSortValue] = useState<FilterValue>(FilterValue.POPULAR);
+
+  const newFilteredOffers = sortOffers(filteredOffers, selectedSortValue);
+
   const points = getPointsFromOffers(filteredOffers);
 
-  const onListItemHover = (listItemId: number ) => {
+  const onListItemHover = (listItemId: number) => {
     setSelectedPoint(listItemId);
   };
 
@@ -34,22 +53,8 @@ function Main() {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offersLength} places to stay in {currentCity}</b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex={0}>
-                    Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
-                  <use xlinkHref="#icon-arrow-select"/>
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                <li className="places__option" tabIndex={0}>Price: low to high</li>
-                <li className="places__option" tabIndex={0}>Price: high to low</li>
-                <li className="places__option" tabIndex={0}>Top rated first</li>
-              </ul>
-            </form>
-            <OfferList offers={filteredOffers} onListItemHover={onListItemHover} />
+            <OffersSorting selectedSortValue={selectedSortValue} setSelectedSortValue={setSelectedSortValue}/>
+            <OfferList offers={newFilteredOffers} onListItemHover={onListItemHover}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">

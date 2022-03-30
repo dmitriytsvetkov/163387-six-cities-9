@@ -1,11 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, loadAllOffers, loadNearbyOffers, loadOffer, requireAuthorization} from './action';
+import {changeCurrentCity, loadAllOffers, loadNearbyOffers, loadOffer, requireAuthorization} from './action';
 import {cities} from '../mocks/cities';
-import {AuthorizationStatus} from '../const';
+import {AuthorizationStatus, FilterValue} from '../const';
 import {Cities, Offer, Offers} from '../types/offers';
 
 type InitialState = {
   currentCity: string,
+  currentFilter: string,
   offers: Offers,
   nearbyOffers: Offers,
   currentOffer: Offer | null,
@@ -16,6 +17,7 @@ type InitialState = {
 
 const initialState:InitialState = {
   currentCity: 'Paris',
+  currentFilter: FilterValue.POPULAR,
   offers: [],
   nearbyOffers: [],
   currentOffer: null,
@@ -36,8 +38,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
     })
-    .addCase(changeCity, (state, action) => {
-      state.currentCity = action.payload;
+    .addCase(changeCurrentCity, (state, action) => {
+      state.currentCity = action.payload as string;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
