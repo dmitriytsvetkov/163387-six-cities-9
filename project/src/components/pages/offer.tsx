@@ -1,12 +1,12 @@
-import {fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {fetchComments, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {calculateStarsFromRating, getPointsFromOffers} from '../../utils';
+import {calculateRatingStars, getPointsFromOffers} from '../../utils';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import Comments from '../comments/comments';
 import Map from '../map/map';
 import OfferList from '../offer-list/offer-list';
-import {MAP_HEIGHT} from '../../const';
+import {MapHeight} from '../../const';
 
 function Offer() {
   const {offerId} = useParams();
@@ -15,10 +15,12 @@ function Offer() {
   useEffect(() => {
     dispatch(fetchOfferAction(Number((offerId))));
     dispatch(fetchNearbyOffersAction(Number((offerId))));
+    dispatch(fetchComments(Number((offerId))));
   }, [dispatch, offerId]);
 
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
 
   const points = getPointsFromOffers(nearbyOffers);
 
@@ -65,7 +67,7 @@ function Offer() {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${calculateStarsFromRating(rating)}%`}}/>
+                  <span style={{width: `${calculateRatingStars(rating)}%`}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -125,11 +127,11 @@ function Offer() {
                   </p>
                 </div>
               </div>
-              <Comments/>
+              <Comments comments={comments}/>
             </div>
           </div>
           <section className="property__map map">
-            <Map points={points} selectedPoint={selectedPoint} height={MAP_HEIGHT.OFFER_SCREEN}/>
+            <Map points={points} selectedPoint={selectedPoint} height={MapHeight.OFFER_SCREEN}/>
           </section>
         </section>
         <div className="container">

@@ -1,13 +1,21 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCurrentCity, loadAllOffers, loadNearbyOffers, loadOffer, requireAuthorization} from './action';
+import {
+  changeCurrentCity,
+  loadAllOffers,
+  loadComments,
+  loadNearbyOffers,
+  loadOffer,
+  requireAuthorization, saveComment
+} from './action';
 import {cities} from '../mocks/cities';
-import {AuthorizationStatus, FilterValue} from '../const';
+import {AuthorizationStatus} from '../const';
 import {Cities, Offer, Offers} from '../types/offers';
+import {Comments} from '../types/comments';
 
 type InitialState = {
   currentCity: string,
-  currentFilter: string,
   offers: Offers,
+  comments: Comments,
   nearbyOffers: Offers,
   currentOffer: Offer | null,
   cities: Cities,
@@ -17,8 +25,8 @@ type InitialState = {
 
 const initialState:InitialState = {
   currentCity: 'Paris',
-  currentFilter: FilterValue.POPULAR,
   offers: [],
+  comments: [],
   nearbyOffers: [],
   currentOffer: null,
   cities,
@@ -34,6 +42,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.currentOffer = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(saveComment, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;

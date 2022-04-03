@@ -1,7 +1,7 @@
 import {Offer} from '../../types/offers';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {calculateStarsFromRating} from '../../utils';
+import {calculateRatingStars} from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer,
@@ -36,7 +36,7 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${calculateStarsFromRating(offer.rating)}%`}}/>
+            <span style={{width: `${calculateRatingStars(offer.rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

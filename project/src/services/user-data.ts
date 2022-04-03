@@ -19,7 +19,7 @@ export const saveUserData = (data: userData): void => {
   localStorage.setItem(UserData.token, data.token);
 };
 
-export const getUserData = (fieldName:string):string => {
+export const getUserData = (fieldName:string): string => {
   const data = localStorage.getItem(fieldName);
 
   return data ?? '';
