@@ -6,7 +6,7 @@ type Props = {
   selectedSortValue: FilterValue,
 }
 
-function OffersSorting({setSelectedSortValue, selectedSortValue}: Props) {
+function OfferSorting({setSelectedSortValue, selectedSortValue}: Props) {
   const [isActive, setIsActive] = useState(false);
 
   const handleFilterClick = (evt: React.MouseEvent<HTMLLIElement>) => {
@@ -49,4 +49,4 @@ function OffersSorting({setSelectedSortValue, selectedSortValue}: Props) {
   );
 }
 
-export default OffersSorting;
+export default OfferSorting;

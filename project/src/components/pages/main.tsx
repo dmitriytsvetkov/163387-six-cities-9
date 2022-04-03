@@ -5,8 +5,8 @@ import CityList from '../city-list/city-list';
 import {useAppSelector} from '../../hooks';
 import {getCurrentCityName, getOffers} from '../../store/selectors';
 import {getOffersByCityName, getPointsFromOffers} from '../../utils';
-import {FilterValue, MAP_HEIGHT} from '../../const';
-import OffersSorting from '../offers-sorting/offers-sortings';
+import {FilterValue, MapHeight} from '../../const';
+import OfferSorting from '../offer-sorting/offer-sorting';
 import {Offers} from '../../types/offers';
 
 const sortOffers = (offers: Offers, filterValue: FilterValue) => {
@@ -53,12 +53,12 @@ function Main() {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offersLength} places to stay in {currentCity}</b>
-            <OffersSorting selectedSortValue={selectedSortValue} setSelectedSortValue={setSelectedSortValue}/>
+            <OfferSorting selectedSortValue={selectedSortValue} setSelectedSortValue={setSelectedSortValue}/>
             <OfferList offers={newFilteredOffers} onListItemHover={onListItemHover}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map points={points} selectedPoint={selectedPoint} height={MAP_HEIGHT.MAIN_SCREEN}/>
+              <Map points={points} selectedPoint={selectedPoint} height={MapHeight.MAIN_SCREEN}/>
             </section>
           </div>
         </div>

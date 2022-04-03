@@ -1,18 +1,33 @@
 import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {sendComment} from '../../store/api-actions';
 
 function CommentForm() {
+  const {offerId} = useParams();
+  const dispatch = useAppDispatch();
+
   const [formData, setFormData] = useState({
     review: '',
-    rating: null,
+    rating: 0,
   });
 
-  const fieldChangeHandler = (event:(React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>)) => {
-    const {name, value} = event.target;
+  const fieldChangeHandler = (evt: (React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>)) => {
+    const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
 
+  const handleSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    setFormData({
+      review: '',
+      rating: formData.rating,
+    });
+    dispatch(sendComment({comment: formData.review, rating: formData.rating, offerId: offerId}));
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={fieldChangeHandler}/>
@@ -50,13 +65,13 @@ function CommentForm() {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={fieldChangeHandler}/>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review} onChange={fieldChangeHandler}/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe
           your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={formData.review.length < 50}>Submit</button>
       </div>
     </form>
   );

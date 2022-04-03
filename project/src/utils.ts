@@ -4,7 +4,7 @@ export const findCityByName = (cityName:string, cities:Cities) => cities.find((i
 
 export const getOffersByCityName = (offers:Offers, cityName:string) => offers.filter((offer:Offer) => offer.city.name === cityName);
 
-export const calculateStarsFromRating = (rating: number) => {
+export const calculateRatingStars = (rating: number) => {
   if (rating > 0 && rating <= 1.5) {
     return 20;
   } else if (rating > 1.5 && rating <= 2.5) {

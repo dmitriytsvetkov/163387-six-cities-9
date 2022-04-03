@@ -3,12 +3,15 @@ export enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
   Offer = '/offer',
+  NotFound = '/404',
 }
 
 export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Comments = '/comments',
+
 }
 
 export const URL_MARKER_DEFAULT =
@@ -38,7 +41,7 @@ export enum UserData {
   token = 'token',
 }
 
-export enum MAP_HEIGHT {
+export enum MapHeight {
   OFFER_SCREEN = 579,
   MAIN_SCREEN = 782,
 }
