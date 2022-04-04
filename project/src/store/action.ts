@@ -18,3 +18,5 @@ export const saveComment = createAction<Comments>('data/saveComment');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('user/redirectToRoute');
+
+export const setPageClass = createAction<string>('data/setPageClass');

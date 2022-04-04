@@ -1,13 +1,14 @@
 import OfferList from '../offer-list/offer-list';
 import Map from '../map/map';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CityList from '../city-list/city-list';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getCurrentCityName, getOffers} from '../../store/selectors';
 import {getOffersByCityName, getPointsFromOffers} from '../../utils';
-import {FilterValue, MapHeight} from '../../const';
+import {FilterValue, MapHeight, PageClasses} from '../../const';
 import OfferSorting from '../offer-sorting/offer-sorting';
 import {Offers} from '../../types/offers';
+import {setPageClass} from '../../store/action';
 
 const sortOffers = (offers: Offers, filterValue: FilterValue) => {
   switch (filterValue) {
@@ -23,6 +24,13 @@ const sortOffers = (offers: Offers, filterValue: FilterValue) => {
 };
 
 function Main() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setPageClass(PageClasses.PAGE_MAIN));
+  }, [dispatch]);
+
+
   const offers = useAppSelector(getOffers);
   const currentCity = useAppSelector(getCurrentCityName);
 

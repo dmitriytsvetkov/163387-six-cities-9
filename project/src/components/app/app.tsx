@@ -15,6 +15,7 @@ import {BrowserHistory} from '../../browser-history';
 function App() {
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const pageClass = useAppSelector((state) => state.currentPageClass);
 
   if (!isDataLoaded) {
     return <Preloader/>;
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <HistoryRouter history={BrowserHistory}>
-      <div className="page">
+      <div className={`page ${pageClass}`}>
         <Header/>
         <Routes>
           <Route
