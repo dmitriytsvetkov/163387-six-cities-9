@@ -6,13 +6,15 @@ import {useParams} from 'react-router-dom';
 import Comments from '../comments/comments';
 import Map from '../map/map';
 import OfferList from '../offer-list/offer-list';
-import {MapHeight} from '../../const';
+import {MapHeight, PageClasses} from '../../const';
+import {setPageClass} from '../../store/action';
 
 function Offer() {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(setPageClass(PageClasses.DEFAULT));
     dispatch(fetchOfferAction(Number((offerId))));
     dispatch(fetchNearbyOffersAction(Number((offerId))));
     dispatch(fetchComments(Number((offerId))));

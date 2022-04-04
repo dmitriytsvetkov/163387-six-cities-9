@@ -52,3 +52,10 @@ export enum FilterValue {
   PRICE_ASC = 'Price: high to low',
   TOP_RATED = 'Top rated first',
 }
+
+export enum PageClasses {
+  PAGE_MAIN = 'page--gray page--main',
+  LOGIN = 'page--gray page--login',
+  FAVORITES_EMPTY = 'page--favorites-empty',
+  DEFAULT = '',
+}

@@ -1,11 +1,13 @@
 import {Comment as CommentType} from '../../types/comments';
-import {calculateRatingStars} from '../../utils';
+import {calculateRatingStars, getFormattedDate} from '../../utils';
 
 type Props = {
   comment: CommentType
 }
 
 function Comment({comment}: Props) {
+  const date = new Date(comment.date);
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -22,7 +24,7 @@ function Comment({comment}: Props) {
           </div>
         </div>
         <p className="reviews__text">{comment.comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{comment.date}</time>
+        <time className="reviews__time" dateTime={getFormattedDate('YYYY-MM-DD', date)}>{getFormattedDate('MMMM YYYY', date)}</time>
       </div>
     </li>
   );
