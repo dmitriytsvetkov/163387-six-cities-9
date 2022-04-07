@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   changeCurrentCity,
   loadAllOffers,
-  loadComments,
+  loadComments, loadFavoriteOffers,
   loadNearbyOffers,
   loadOffer,
   requireAuthorization, saveComment, setPageClass
@@ -16,6 +16,7 @@ type InitialState = {
   currentCity: string | null,
   currentPageClass: string,
   offers: Offers,
+  favoriteOffers: Offers,
   comments: Comments,
   nearbyOffers: Offers,
   currentOffer: Offer | null,
@@ -28,6 +29,7 @@ const initialState:InitialState = {
   currentCity: 'Paris',
   currentPageClass: PageClasses.DEFAULT,
   offers: [],
+  favoriteOffers: [],
   comments: [],
   nearbyOffers: [],
   currentOffer: null,
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadAllOffers, (state, action) => {
       state.offers = action.payload;
       state.isDataLoaded = true;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
       state.currentOffer = action.payload;

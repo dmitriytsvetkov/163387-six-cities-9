@@ -51,7 +51,7 @@ export const fetchNearbyOffersAction = createAsyncThunk(
   },
 );
 
-export const fetchComments = createAsyncThunk(
+export const fetchCommentsAction = createAsyncThunk(
   'data/loadComments',
   async (offerId: number) => {
     try {
@@ -63,7 +63,7 @@ export const fetchComments = createAsyncThunk(
   },
 );
 
-export const sendComment = createAsyncThunk(
+export const sendCommentAction = createAsyncThunk(
   'data/sendComment',
   async ({comment, rating, offerId}: Comment) => {
     try {
@@ -110,6 +110,18 @@ export const logoutAction = createAsyncThunk(
       await api.delete(APIRoute.Logout);
       dropUserData();
       store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+    } catch (err) {
+      errorHandle(err);
+    }
+  },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk(
+  'data/loadFavoriteOffers',
+  async () => {
+    try {
+      const {data} = await api.get<Offers>(APIRoute.Favorite);
+      store.dispatch(loadAllOffers(data));
     } catch (err) {
       errorHandle(err);
     }

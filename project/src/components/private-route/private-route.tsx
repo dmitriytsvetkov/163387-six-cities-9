@@ -1,4 +1,4 @@
-import Login from '../pages/login';
+import LoginScreen from '../pages/login-screen';
 import {AuthorizationStatus} from '../../const';
 
 type PrivateRouteProps = {
@@ -13,7 +13,7 @@ function PrivateRoute({children, authorizationStatus}: PrivateRouteProps) {
     hasAccess = true;
   }
 
-  return hasAccess ? children : <Login/>;
+  return hasAccess ? children : <LoginScreen/>;
 }
 
 export default PrivateRoute;

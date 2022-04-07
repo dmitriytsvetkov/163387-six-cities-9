@@ -1,4 +1,4 @@
-import {fetchComments, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {calculateRatingStars, getPointsFromOffers} from '../../utils';
 import React, {useEffect, useState} from 'react';
@@ -9,7 +9,7 @@ import OfferList from '../offer-list/offer-list';
 import {MapHeight, PageClasses} from '../../const';
 import {setPageClass} from '../../store/action';
 
-function Offer() {
+function OfferScreen() {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
 
@@ -17,7 +17,7 @@ function Offer() {
     dispatch(setPageClass(PageClasses.DEFAULT));
     dispatch(fetchOfferAction(Number((offerId))));
     dispatch(fetchNearbyOffersAction(Number((offerId))));
-    dispatch(fetchComments(Number((offerId))));
+    dispatch(fetchCommentsAction(Number((offerId))));
   }, [dispatch, offerId]);
 
   const currentOffer = useAppSelector((state) => state.currentOffer);
@@ -154,4 +154,4 @@ function Offer() {
   );
 }
 
-export default Offer;
+export default OfferScreen;

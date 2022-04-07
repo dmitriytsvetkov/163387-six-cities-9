@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks';
-import {sendComment} from '../../store/api-actions';
+import {sendCommentAction} from '../../store/api-actions';
 
 function CommentForm() {
   const {offerId} = useParams();
@@ -23,7 +23,7 @@ function CommentForm() {
       review: '',
       rating: formData.rating,
     });
-    dispatch(sendComment({comment: formData.review, rating: formData.rating, offerId: offerId}));
+    dispatch(sendCommentAction({comment: formData.review, rating: formData.rating, offerId: offerId}));
   };
 
   return (

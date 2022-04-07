@@ -7,6 +7,8 @@ export const changeCurrentCity = createAction<string | null>('data/changeCity');
 
 export const loadAllOffers = createAction<Offers>('data/loadAllOffers');
 
+export const loadFavoriteOffers = createAction<Offers>('data/loadFavoriteOffers');
+
 export const loadOffer = createAction<Offer>('data/loadOffer');
 
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');

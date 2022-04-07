@@ -1,5 +1,6 @@
 import {Cities, City, Offer, Offers} from './types/offers';
 import dayjs from 'dayjs';
+import {FilterValue} from './const';
 
 export const findCityByName = (cityName: string | null, cities: Cities) => cities.find((item:City) => item.name === cityName);
 
@@ -24,3 +25,16 @@ export const calculateRatingStars = (rating: number) => {
 export const getPointsFromOffers = (offers:Offers) => offers.map((offer) => ({...offer.location, id: offer.id}));
 
 export const getFormattedDate = (dateFormat: string, date: Date) => dayjs(date).format(dateFormat);
+
+export const sortOffers = (offers: Offers, filterValue: FilterValue) => {
+  switch (filterValue) {
+    case FilterValue.PRICE_DESC:
+      return offers.sort((a, b) => a.price - b.price);
+    case FilterValue.PRICE_ASC:
+      return offers.sort((a, b) => b.price - a.price);
+    case FilterValue.TOP_RATED:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};

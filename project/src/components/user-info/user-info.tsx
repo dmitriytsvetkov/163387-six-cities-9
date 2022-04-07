@@ -17,7 +17,7 @@ function UserInfo() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <li className="header__nav-item user">
         <a className="header__nav-link header__nav-link--profile" href="#">
           <div
@@ -35,7 +35,7 @@ function UserInfo() {
           <span className="header__signout">Sign out</span>
         </a>
       </li>
-    </React.Fragment>
+    </>
   );
 }
 

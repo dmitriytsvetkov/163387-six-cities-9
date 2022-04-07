@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-function NotFound() {
+function NotFoundScreen() {
   return (
     <main className="container">
       <h1>Not Found</h1>
@@ -10,4 +10,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotFoundScreen;
