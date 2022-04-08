@@ -1,19 +1,44 @@
-import {FormEvent, useEffect, useRef} from 'react';
+import {FormEvent, useEffect, useRef, useState} from 'react';
 import {AuthData} from '../../types/auth-data';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {setPageClass} from '../../store/action';
-import {PageClasses} from '../../const';
+import {AppRoute, AuthorizationStatus, PageClasses} from '../../const';
+import {useNavigate} from 'react-router-dom';
+
+const passwordRegExp = new RegExp(/(?=.*[0-9])(?=.*[A-Za-z])[0-9A-Za-z]{2,}/);
 
 function LoginScreen() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
 
   const userEmailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
+    if (authStatus === AuthorizationStatus.AUTH) {
+      navigate(AppRoute.Root);
+    }
+
     dispatch(setPageClass(PageClasses.LOGIN));
-  }, [dispatch]);
+  }, [authStatus, dispatch, navigate]);
+
+  const passwordValidation = (password: string) => {
+    if (password === '') {
+      setPasswordError('Password cannot be empty');
+      return false;
+    }
+    if (!passwordRegExp.test(`${password}`.toLowerCase())) {
+      setPasswordError('Password must contain letters and numbers');
+      return false;
+    } else {
+      setPasswordError('');
+      return true;
+    }
+  };
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -22,7 +47,7 @@ function LoginScreen() {
   const handleSubmit = (evt:FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (userEmailRef.current !== null && passwordRef.current !== null) {
+    if (userEmailRef.current !== null && passwordRef.current !== null && passwordValidation(passwordRef.current.value)) {
       onSubmit({
         email: userEmailRef.current.value,
         password: passwordRef.current.value,
@@ -42,6 +67,7 @@ function LoginScreen() {
             </div>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">Password</label>
+              {passwordError ? <div style={{color: '#d91818'}}>{passwordError}</div> : ''}
               <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>

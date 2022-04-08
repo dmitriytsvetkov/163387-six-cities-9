@@ -1,6 +1,7 @@
 import {Cities, City, Offer, Offers} from './types/offers';
 import dayjs from 'dayjs';
 import {FilterValue} from './const';
+import {Comment} from './types/comments';
 
 export const findCityByName = (cityName: string | null, cities: Cities) => cities.find((item:City) => item.name === cityName);
 
@@ -9,7 +10,6 @@ export const getOffersByCityName = (offers: Offers, cityName: string | null) => 
 export const getFavoriteOffers = (offers: Offers) => offers.filter((offer:Offer) => offer.isFavorite);
 
 export const getFilteredCitiesFromOffers = (offers: Offers) => [...new Set(offers.map((item) => item.city.name))];
-
 
 export const calculateRatingStars = (rating: number) => {
   if (rating > 0 && rating <= 1.5) {
@@ -45,3 +45,9 @@ export const sortOffers = (offers: Offers, filterValue: FilterValue) => {
 };
 
 export const replaceObjectInArray = (arr1: Offers, arr2: Offers) => arr1.map((obj) => arr2.find((o) => o.id === obj.id) || obj);
+
+export const sortByNewerDate = (first:Comment, second:Comment) => {
+  const firstDate = new Date(first.date);
+  const secondDate = new Date(second.date);
+  return +secondDate - +firstDate;
+};
