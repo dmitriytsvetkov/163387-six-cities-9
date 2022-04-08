@@ -81,10 +81,10 @@ export const checkAuthAction = createAsyncThunk(
   async () => {
     try {
       await api.get(APIRoute.Login);
-      store.dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (err) {
       errorHandle(err);
-      store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -95,11 +95,11 @@ export const loginAction = createAsyncThunk(
     try {
       const {data} = await api.post(APIRoute.Login, {email, password});
       saveUserData(data);
-      store.dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoute.Root));
     } catch (err) {
       errorHandle(err);
-      store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -110,7 +110,7 @@ export const logoutAction = createAsyncThunk(
     try {
       await api.delete(APIRoute.Logout);
       dropUserData();
-      store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     } catch (err) {
       errorHandle(err);
     }

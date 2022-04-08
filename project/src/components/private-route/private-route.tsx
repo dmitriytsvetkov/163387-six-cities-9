@@ -9,7 +9,7 @@ type PrivateRouteProps = {
 function PrivateRoute({children, authorizationStatus}: PrivateRouteProps) {
   let hasAccess = false;
 
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
+  if (authorizationStatus === AuthorizationStatus.Auth) {
     hasAccess = true;
   }
 

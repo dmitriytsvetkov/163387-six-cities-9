@@ -10,7 +10,7 @@ function HeaderNavigation() {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {authorizationStatus === AuthorizationStatus.AUTH ? <UserInfo/> : <SignIn/>}
+        {authorizationStatus === AuthorizationStatus.Auth ? <UserInfo/> : <SignIn/>}
       </ul>
     </nav>
   );

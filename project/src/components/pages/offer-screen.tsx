@@ -19,7 +19,7 @@ function OfferScreen() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.DEFAULT));
+    dispatch(setPageClass(PageClasses.Default));
     dispatch(fetchOfferAction(Number((offerId))));
     dispatch(fetchNearbyOffersAction(Number((offerId))));
     dispatch(fetchCommentsAction(Number((offerId))));
@@ -145,7 +145,7 @@ function OfferScreen() {
             </div>
           </div>
           <section className="property__map map">
-            <Map points={points} selectedPoint={selectedPoint} height={MapHeight.OFFER_SCREEN}/>
+            <Map points={points} selectedPoint={selectedPoint} height={MapHeight.OfferScreen}/>
           </section>
         </section>
         <div className="container">

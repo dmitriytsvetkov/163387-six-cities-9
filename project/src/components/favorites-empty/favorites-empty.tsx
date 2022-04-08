@@ -7,7 +7,7 @@ function FavoritesEmpty() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.FAVORITES_EMPTY));
+    dispatch(setPageClass(PageClasses.FavoritesEmpty));
   }, [dispatch]);
 
   return (

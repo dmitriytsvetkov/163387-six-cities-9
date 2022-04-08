@@ -10,7 +10,7 @@ import PrivateRoute from '../private-route/private-route';
 import {useAppSelector} from '../../hooks';
 import Preloader from '../preloader/preloader';
 import HistoryRouter from '../../history-route';
-import {BrowserHistory} from '../../browser-history';
+import {browserHistory} from '../../browser-history';
 
 function App() {
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <HistoryRouter history={BrowserHistory}>
+    <HistoryRouter history={browserHistory}>
       <div className={`page ${pageClass}`}>
         <Header/>
         <Routes>

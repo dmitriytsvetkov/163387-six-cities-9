@@ -8,7 +8,7 @@ function NoOffers() {
   const currentCity = useAppSelector((state) => state.currentCity);
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.LOGIN));
+    dispatch(setPageClass(PageClasses.Login));
   }, [dispatch]);
 
   return (

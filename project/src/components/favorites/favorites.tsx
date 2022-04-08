@@ -14,7 +14,7 @@ function Favorites ({offers}: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.DEFAULT));
+    dispatch(setPageClass(PageClasses.Default));
   }, [dispatch]);
 
   const cityList = getFilteredCitiesFromOffers(offers);

@@ -33,11 +33,11 @@ export const getFormattedDate = (dateFormat: string, date: Date) => dayjs(date).
 
 export const sortOffers = (offers: Offers, filterValue: FilterValue) => {
   switch (filterValue) {
-    case FilterValue.PRICE_DESC:
+    case FilterValue.PriceDesc:
       return offers.sort((a, b) => a.price - b.price);
-    case FilterValue.PRICE_ASC:
+    case FilterValue.PriceAsc:
       return offers.sort((a, b) => b.price - a.price);
-    case FilterValue.TOP_RATED:
+    case FilterValue.TopRated:
       return offers.sort((a, b) => b.rating - a.rating);
     default:
       return offers;

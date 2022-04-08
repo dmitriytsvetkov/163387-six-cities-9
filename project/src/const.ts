@@ -21,8 +21,8 @@ export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
 export enum AuthorizationStatus {
-  AUTH = 'AUTH',
-  NO_AUTH = 'NO_AUTH',
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
@@ -33,29 +33,29 @@ export enum HTTP_CODE {
 }
 
 export enum UserData {
-  avatarUrl = 'avatarUrl',
-  email = 'email',
-  id = 'id',
-  isPro = 'isPro',
-  name = 'name',
-  token = 'token',
+  AvatarUrl = 'AvatarUrl',
+  Email = 'Email',
+  Id = 'Id',
+  IsPro = 'IsPro',
+  Name = 'Name',
+  Token = 'Token',
 }
 
 export enum MapHeight {
-  OFFER_SCREEN = 579,
-  MAIN_SCREEN = 782,
+  OfferScreen = 579,
+  MainScreen = 782,
 }
 
 export enum FilterValue {
-  POPULAR = 'Popular',
-  PRICE_DESC = 'Price: low to high',
-  PRICE_ASC = 'Price: high to low',
-  TOP_RATED = 'Top rated first',
+  Popular = 'Popular',
+  PriceDesc = 'Price: low to high',
+  PriceAsc = 'Price: high to low',
+  TopRated = 'Top rated first',
 }
 
 export enum PageClasses {
-  PAGE_MAIN = 'page--gray page--main',
-  LOGIN = 'page--gray page--login',
-  FAVORITES_EMPTY = 'page--favorites-empty',
-  DEFAULT = '',
+  PageMain = 'page--gray page--main',
+  Login = 'page--gray page--login',
+  FavoritesEmpty = 'page--favorites-empty',
+  Default = '',
 }

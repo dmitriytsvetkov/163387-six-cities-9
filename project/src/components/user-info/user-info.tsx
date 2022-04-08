@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 function UserInfo() {
   const dispatch = useAppDispatch();
 
-  const userEmail = getUserData(UserData.email);
-  const userAvatar = getUserData(UserData.avatarUrl);
+  const userEmail = getUserData(UserData.Email);
+  const userAvatar = getUserData(UserData.AvatarUrl);
 
   const handleClick = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();

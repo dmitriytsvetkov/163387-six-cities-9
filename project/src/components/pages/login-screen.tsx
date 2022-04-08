@@ -19,11 +19,11 @@ function LoginScreen() {
   const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
-    if (authStatus === AuthorizationStatus.AUTH) {
+    if (authStatus === AuthorizationStatus.Auth) {
       navigate(AppRoute.Root);
     }
 
-    dispatch(setPageClass(PageClasses.LOGIN));
+    dispatch(setPageClass(PageClasses.Login));
   }, [authStatus, dispatch, navigate]);
 
   const passwordValidation = (password: string) => {

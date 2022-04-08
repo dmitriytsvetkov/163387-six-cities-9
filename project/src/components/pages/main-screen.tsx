@@ -14,7 +14,7 @@ function MainScreen() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.PAGE_MAIN));
+    dispatch(setPageClass(PageClasses.PageMain));
   }, [dispatch]);
 
   const offers = useAppSelector(getOffers);
@@ -27,7 +27,7 @@ function MainScreen() {
 
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
-  const [selectedSortValue, setSelectedSortValue] = useState<FilterValue>(FilterValue.POPULAR);
+  const [selectedSortValue, setSelectedSortValue] = useState<FilterValue>(FilterValue.Popular);
 
   const newFilteredOffers = sortOffers(filteredOffers, selectedSortValue);
 
@@ -60,7 +60,7 @@ function MainScreen() {
               (offersLength === 0) ?
                 null :
                 <section className="cities__map map">
-                  <Map points={points} selectedPoint={selectedPoint} height={MapHeight.MAIN_SCREEN}/>
+                  <Map points={points} selectedPoint={selectedPoint} height={MapHeight.MainScreen}/>
                 </section>
             }
           </div>

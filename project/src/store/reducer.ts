@@ -27,7 +27,7 @@ type InitialState = {
 
 const initialState:InitialState = {
   currentCity: 'Paris',
-  currentPageClass: PageClasses.DEFAULT,
+  currentPageClass: PageClasses.Default,
   offers: [],
   comments: [],
   nearbyOffers: [],
