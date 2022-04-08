@@ -6,6 +6,11 @@ export const findCityByName = (cityName: string | null, cities: Cities) => citie
 
 export const getOffersByCityName = (offers: Offers, cityName: string | null) => offers.filter((offer:Offer) => offer.city.name === cityName);
 
+export const getFavoriteOffers = (offers: Offers) => offers.filter((offer:Offer) => offer.isFavorite);
+
+export const getFilteredCitiesFromOffers = (offers: Offers) => [...new Set(offers.map((item) => item.city.name))];
+
+
 export const calculateRatingStars = (rating: number) => {
   if (rating > 0 && rating <= 1.5) {
     return 20;
@@ -38,3 +43,5 @@ export const sortOffers = (offers: Offers, filterValue: FilterValue) => {
       return offers;
   }
 };
+
+export const replaceObjectInArray = (arr1: Offers, arr2: Offers) => arr1.map((obj) => arr2.find((o) => o.id === obj.id) || obj);

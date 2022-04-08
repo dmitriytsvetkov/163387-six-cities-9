@@ -1,40 +1,31 @@
-import {Offer, Offers} from '../../types/offers';
-import PlaceCard from '../place-card/place-card';
+import {Offers} from '../../types/offers';
+import {useAppDispatch} from '../../hooks';
+import {useEffect} from 'react';
+import {setPageClass} from '../../store/action';
+import {PageClasses} from '../../const';
+import {getFilteredCitiesFromOffers} from '../../utils';
+import FavoritesLocationItem from '../favorites-location-item/favorites-location-item';
 
 type Props = {
   offers: Offers,
 }
 
 function Favorites ({offers}: Props) {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setPageClass(PageClasses.DEFAULT));
+  }, [dispatch]);
+
+  const cityList = getFilteredCitiesFromOffers(offers);
+
   return (
     <section className='favorites'>
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        <li className="favorites__locations-items">
-          <div className="favorites__locations locations locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </div>
-          <div className="favorites__places">
-            {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>))}
-          </div>
-        </li>
-
-        <li className="favorites__locations-items">
-          <div className="favorites__locations locations locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Cologne</span>
-              </a>
-            </div>
-          </div>
-          <div className="favorites__places">
-            {offers.map((offer:Offer) => (<PlaceCard offer={offer} key={offer.id} className={'favorites'}/>))}
-          </div>
-        </li>
+        {
+          cityList.map((city) => (<FavoritesLocationItem offers={offers} key={city} city={city}/>))
+        }
       </ul>
     </section>
   );

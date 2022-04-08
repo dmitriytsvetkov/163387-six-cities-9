@@ -8,12 +8,13 @@ import {
   loadNearbyOffers,
   loadOffer,
   redirectToRoute,
-  requireAuthorization, saveComment
+  requireAuthorization, saveComment, saveFavoriteOffer
 } from './action';
 import {errorHandle} from '../services/error-handle';
 import {AuthData} from '../types/auth-data';
 import {dropUserData, saveUserData} from '../services/user-data';
 import {Comment} from '../types/comment';
+import {FavoriteData} from '../types/favorite-data';
 
 export const fetchAllOffersAction = createAsyncThunk(
   'data/loadOffers',
@@ -90,7 +91,7 @@ export const checkAuthAction = createAsyncThunk(
 
 export const loginAction = createAsyncThunk(
   'user/login',
-  async ({email, password}:AuthData) => {
+  async ({email, password}: AuthData) => {
     try {
       const {data} = await api.post(APIRoute.Login, {email, password});
       saveUserData(data);
@@ -116,14 +117,15 @@ export const logoutAction = createAsyncThunk(
   },
 );
 
-export const fetchFavoriteOffersAction = createAsyncThunk(
-  'data/loadFavoriteOffers',
-  async () => {
+export const changeFavoriteOfferStatusAction = createAsyncThunk(
+  'data/changeFavoriteOfferStatus',
+  async ({offerId, isFavorite}: FavoriteData) => {
     try {
-      const {data} = await api.get<Offers>(APIRoute.Favorite);
-      store.dispatch(loadAllOffers(data));
+      const {data} = await api.post(`${APIRoute.Favorite}/${offerId}/${isFavorite}`, {offerId, isFavorite});
+      store.dispatch(saveFavoriteOffer([data]));
     } catch (err) {
       errorHandle(err);
+      store.dispatch(redirectToRoute(AppRoute.Login));
     }
   },
 );

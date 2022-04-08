@@ -17,7 +17,6 @@ function MainScreen() {
     dispatch(setPageClass(PageClasses.PAGE_MAIN));
   }, [dispatch]);
 
-
   const offers = useAppSelector(getOffers);
 
   const currentCity = useAppSelector(getCurrentCityName);

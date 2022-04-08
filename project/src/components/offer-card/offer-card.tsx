@@ -2,14 +2,20 @@ import {Offer} from '../../types/offers';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {calculateRatingStars} from '../../utils';
+import {useAppDispatch} from '../../hooks';
+import {changeFavoriteOfferStatusAction} from '../../store/api-actions';
 
-type PlaceCardProps = {
+type Props = {
   offer: Offer,
   listItemHoverHandler?: (listItemId: number) => void,
   className: string,
+  imgSize?: string,
 }
 
-function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
+function OfferCard({offer, listItemHoverHandler, className, imgSize}: Props) {
+  const dispatch = useAppDispatch();
+  const {isFavorite} = offer;
+
   return (
     <article className={`${className === 'favorites' ? 'favorites__card' : 'cities__place-card'} place-card`} onMouseEnter={() => {listItemHoverHandler?.(offer.id);}}>
       {offer.isPremium ?
@@ -18,7 +24,7 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
         </div> : null}
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${offer.id}`}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width={imgSize === 'sm' ? '150' : '260'} height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -28,10 +34,11 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
             onClick={(evt) => {
               evt.preventDefault();
+              dispatch(changeFavoriteOfferStatusAction({offerId: offer.id, isFavorite: Number(!isFavorite)}));
             }}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -55,4 +62,4 @@ function PlaceCard({offer, listItemHoverHandler, className}: PlaceCardProps) {
   );
 }
 
-export default PlaceCard;
+export default OfferCard;

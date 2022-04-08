@@ -1,4 +1,9 @@
-import {fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {
+  changeFavoriteOfferStatusAction,
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+  fetchOfferAction
+} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {calculateRatingStars, getPointsFromOffers} from '../../utils';
 import React, {useEffect, useState} from 'react';
@@ -33,7 +38,7 @@ function OfferScreen() {
   };
 
   if (currentOffer !== null) {
-    const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host} = currentOffer;
+    const {images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, id} = currentOffer;
     const slicedImages = images.slice(0, 6);
 
     return (
@@ -60,7 +65,14 @@ function OfferScreen() {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button
+                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
+                  type="button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(changeFavoriteOfferStatusAction({offerId: id, isFavorite: Number(!isFavorite)}));
+                  }}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>

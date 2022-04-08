@@ -7,8 +7,6 @@ export const changeCurrentCity = createAction<string | null>('data/changeCity');
 
 export const loadAllOffers = createAction<Offers>('data/loadAllOffers');
 
-export const loadFavoriteOffers = createAction<Offers>('data/loadFavoriteOffers');
-
 export const loadOffer = createAction<Offer>('data/loadOffer');
 
 export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
@@ -16,6 +14,8 @@ export const loadNearbyOffers = createAction<Offers>('data/loadNearbyOffers');
 export const loadComments = createAction<Comments>('data/loadComments');
 
 export const saveComment = createAction<Comments>('data/saveComment');
+
+export const saveFavoriteOffer = createAction<Offers>('data/saveFavoriteOffer');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 

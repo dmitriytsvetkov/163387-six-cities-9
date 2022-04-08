@@ -1,25 +1,20 @@
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import Favorites from '../favorites/favorites';
 import Footer from '../footer/footer';
-import {useEffect} from 'react';
-import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {getFavoriteOffers} from '../../utils';
 
 function FavoritesScreen() {
-  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.offers);
 
-  useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
-  }, [dispatch]);
-
-  const offers = useAppSelector((state) => state.favoriteOffers);
+  const filteredOffers = getFavoriteOffers(offers);
 
   return (
     <>
-      <main className={`page__main page__main--favorites ${offers.length === 0 ? 'page__main--favorites-empty' : ''}`}>
+      <main className={`page__main page__main--favorites ${filteredOffers.length === 0 ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
           {
-            offers.length === 0 ? <FavoritesEmpty /> : <Favorites offers={offers} />
+            filteredOffers.length === 0 ? <FavoritesEmpty /> : <Favorites offers={filteredOffers} />
           }
         </div>
       </main>
