@@ -5,12 +5,13 @@ import {
   loadComments,
   loadNearbyOffers,
   loadOffer,
-  requireAuthorization, saveComment, setPageClass
+  requireAuthorization, saveComment, saveFavoriteOffer, setPageClass
 } from './action';
 import {cities} from '../mocks/cities';
 import {AuthorizationStatus, PageClasses} from '../const';
 import {Cities, Offer, Offers} from '../types/offers';
 import {Comments} from '../types/comments';
+import {replaceObjectInArray} from '../utils';
 
 type InitialState = {
   currentCity: string | null,
@@ -26,7 +27,7 @@ type InitialState = {
 
 const initialState:InitialState = {
   currentCity: 'Paris',
-  currentPageClass: PageClasses.DEFAULT,
+  currentPageClass: PageClasses.Default,
   offers: [],
   comments: [],
   nearbyOffers: [],
@@ -50,6 +51,14 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(saveComment, (state, action) => {
       state.comments = action.payload;
+    })
+    .addCase(saveFavoriteOffer, (state, action) => {
+      state.offers = replaceObjectInArray(state.offers, action.payload);
+      state.nearbyOffers = replaceObjectInArray(state.nearbyOffers, action.payload);
+
+      if (state.currentOffer !== null && (action.payload[0].id === state.currentOffer.id) ) {
+        state.currentOffer = action.payload[0];
+      }
     })
     .addCase(loadNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;

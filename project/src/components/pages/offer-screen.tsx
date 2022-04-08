@@ -1,4 +1,9 @@
-import {fetchComments, fetchNearbyOffersAction, fetchOfferAction} from '../../store/api-actions';
+import {
+  changeFavoriteOfferStatusAction,
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+  fetchOfferAction
+} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {calculateRatingStars, getPointsFromOffers} from '../../utils';
 import React, {useEffect, useState} from 'react';
@@ -9,15 +14,15 @@ import OfferList from '../offer-list/offer-list';
 import {MapHeight, PageClasses} from '../../const';
 import {setPageClass} from '../../store/action';
 
-function Offer() {
+function OfferScreen() {
   const {offerId} = useParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setPageClass(PageClasses.DEFAULT));
+    dispatch(setPageClass(PageClasses.Default));
     dispatch(fetchOfferAction(Number((offerId))));
     dispatch(fetchNearbyOffersAction(Number((offerId))));
-    dispatch(fetchComments(Number((offerId))));
+    dispatch(fetchCommentsAction(Number((offerId))));
   }, [dispatch, offerId]);
 
   const currentOffer = useAppSelector((state) => state.currentOffer);
@@ -33,7 +38,7 @@ function Offer() {
   };
 
   if (currentOffer !== null) {
-    const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, goods, host} = currentOffer;
+    const {images, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, host, id} = currentOffer;
     const slicedImages = images.slice(0, 6);
 
     return (
@@ -60,7 +65,14 @@ function Offer() {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button
+                  className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
+                  type="button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(changeFavoriteOfferStatusAction({offerId: id, isFavorite: Number(!isFavorite)}));
+                  }}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -133,7 +145,7 @@ function Offer() {
             </div>
           </div>
           <section className="property__map map">
-            <Map points={points} selectedPoint={selectedPoint} height={MapHeight.OFFER_SCREEN}/>
+            <Map points={points} selectedPoint={selectedPoint} height={MapHeight.OfferScreen}/>
           </section>
         </section>
         <div className="container">
@@ -154,4 +166,4 @@ function Offer() {
   );
 }
 
-export default Offer;
+export default OfferScreen;

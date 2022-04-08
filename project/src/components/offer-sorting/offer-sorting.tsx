@@ -40,10 +40,10 @@ function OfferSorting({setSelectedSortValue, selectedSortValue}: Props) {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isActive ? 'places__options--opened' : null}`}>
-        <li className={`places__option ${FilterValue.POPULAR === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.POPULAR}</li>
-        <li className={`places__option ${FilterValue.PRICE_DESC === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PRICE_DESC}</li>
-        <li className={`places__option ${FilterValue.PRICE_ASC === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PRICE_ASC}</li>
-        <li className={`places__option ${FilterValue.TOP_RATED === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.TOP_RATED}</li>
+        <li className={`places__option ${FilterValue.Popular === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.Popular}</li>
+        <li className={`places__option ${FilterValue.PriceDesc === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PriceDesc}</li>
+        <li className={`places__option ${FilterValue.PriceAsc === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.PriceAsc}</li>
+        <li className={`places__option ${FilterValue.TopRated === selectedSortValue ? 'places__option--active' : null}`} tabIndex={0} onClick={handleFilterClick}>{FilterValue.TopRated}</li>
       </ul>
     </form>
   );

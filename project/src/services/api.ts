@@ -13,7 +13,7 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-      const token = getUserData(UserData.token);
+      const token = getUserData(UserData.Token);
       if (token) {
         config.headers['x-token'] = token;
       }

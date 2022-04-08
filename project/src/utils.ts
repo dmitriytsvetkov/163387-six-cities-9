@@ -1,9 +1,15 @@
 import {Cities, City, Offer, Offers} from './types/offers';
 import dayjs from 'dayjs';
+import {FilterValue} from './const';
+import {Comment} from './types/comments';
 
 export const findCityByName = (cityName: string | null, cities: Cities) => cities.find((item:City) => item.name === cityName);
 
 export const getOffersByCityName = (offers: Offers, cityName: string | null) => offers.filter((offer:Offer) => offer.city.name === cityName);
+
+export const getFavoriteOffers = (offers: Offers) => offers.filter((offer:Offer) => offer.isFavorite);
+
+export const getFilteredCitiesFromOffers = (offers: Offers) => [...new Set(offers.map((item) => item.city.name))];
 
 export const calculateRatingStars = (rating: number) => {
   if (rating > 0 && rating <= 1.5) {
@@ -24,3 +30,24 @@ export const calculateRatingStars = (rating: number) => {
 export const getPointsFromOffers = (offers:Offers) => offers.map((offer) => ({...offer.location, id: offer.id}));
 
 export const getFormattedDate = (dateFormat: string, date: Date) => dayjs(date).format(dateFormat);
+
+export const sortOffers = (offers: Offers, filterValue: FilterValue) => {
+  switch (filterValue) {
+    case FilterValue.PriceDesc:
+      return offers.sort((a, b) => a.price - b.price);
+    case FilterValue.PriceAsc:
+      return offers.sort((a, b) => b.price - a.price);
+    case FilterValue.TopRated:
+      return offers.sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
+
+export const replaceObjectInArray = (arr1: Offers, arr2: Offers) => arr1.map((obj) => arr2.find((o) => o.id === obj.id) || obj);
+
+export const sortByNewerDate = (first:Comment, second:Comment) => {
+  const firstDate = new Date(first.date);
+  const secondDate = new Date(second.date);
+  return +secondDate - +firstDate;
+};

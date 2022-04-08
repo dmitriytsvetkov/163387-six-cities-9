@@ -15,6 +15,8 @@ export const loadComments = createAction<Comments>('data/loadComments');
 
 export const saveComment = createAction<Comments>('data/saveComment');
 
+export const saveFavoriteOffer = createAction<Offers>('data/saveFavoriteOffer');
+
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('user/redirectToRoute');
