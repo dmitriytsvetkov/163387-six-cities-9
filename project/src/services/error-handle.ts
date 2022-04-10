@@ -25,5 +25,7 @@ export const errorHandle = (error: ErrorType) => {
         toast.error(response.data.error);
         break;
     }
+  } else {
+    toast.error('Internet connection is offline');
   }
 };
