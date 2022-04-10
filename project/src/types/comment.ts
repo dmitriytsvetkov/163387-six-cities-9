@@ -1,5 +1,10 @@
 export type Comment = {
-  comment: string,
+  review: string,
   rating: number,
-  offerId: string | undefined,
 };
+
+export type CommentFormData = Comment & {
+  offerId: string | undefined,
+  setIsDisabled: (arg0: boolean) => void,
+  setFormData: (arg0: Comment) => void,
+}

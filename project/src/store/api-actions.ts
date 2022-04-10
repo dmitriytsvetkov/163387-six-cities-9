@@ -13,8 +13,9 @@ import {
 import {errorHandle} from '../services/error-handle';
 import {AuthData} from '../types/auth-data';
 import {dropUserData, saveUserData} from '../services/user-data';
-import {Comment} from '../types/comment';
+import {CommentFormData} from '../types/comment';
 import {FavoriteData} from '../types/favorite-data';
+import {FORM_DATA_INIT_STATE} from '../components/comment-form/comment-form';
 
 export const fetchAllOffersAction = createAsyncThunk(
   'data/loadOffers',
@@ -66,12 +67,19 @@ export const fetchCommentsAction = createAsyncThunk(
 
 export const sendCommentAction = createAsyncThunk(
   'data/sendComment',
-  async ({comment, rating, offerId}: Comment) => {
+  async ({review, rating, offerId, setFormData, setIsDisabled}: CommentFormData) => {
     try {
-      const {data} = await api.post(`${APIRoute.Comments}/${offerId}`, {comment, rating});
+      const {data} = await api.post(`${APIRoute.Comments}/${offerId}`, {comment: review, rating});
       store.dispatch(saveComment(data));
+      setFormData(FORM_DATA_INIT_STATE);
+      setIsDisabled(false);
     } catch (err) {
       errorHandle(err);
+      setIsDisabled(false);
+      setFormData({
+        review: review,
+        rating: rating,
+      });
     }
   },
 );
